@@ -20,15 +20,16 @@ const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-if (process.env.NODE_ENV !== 'production') {
-  module.exports.devServer = {
-    contentBase: path.join(__dirname, 'src'),
-    watchContentBase: true,
-    hot: true,
-    open: true,
-    inline: true,
-  };
-}
+// DOESN'T WORK v
+// if (process.env.NODE_ENV !== 'production') {
+//   module.exports.devServer = {
+//     contentBase: path.join(__dirname, 'src'),
+//     watchContentBase: true,
+//     hot: true,
+//     open: true,
+//     inline: true,
+//   };
+// }
 
 module.exports = {
   entry: ['./src/index.js'],
@@ -38,9 +39,16 @@ module.exports = {
     filename: 'main.js',
   },
 
+  devServer: {
+    contentBase: path.join(__dirname, 'src'),
+    watchContentBase: true,
+    hot: true,
+    open: true,
+    inline: true,
+  },
+
   // this is an html plugin that will automatically create an index.html from template
   // and insert your JS bundle there.
-
   plugins: [
     new HtmlWebPackPlugin({
       template: path.resolve('./src/index.html'),
@@ -89,7 +97,7 @@ module.exports = {
           },
           {
             // First we transform SASS to standard CSS
-            loader: 'sass-loader',
+            loader: 'sass-loader?sourceMap',
             // options: {
             //   implementation: require('sass'),
             // },
@@ -97,16 +105,18 @@ module.exports = {
         ],
       },
       {
-        test: /\.(jpg|jpeg|gif|png|svg|webp)$/,
+        test: /\.(png|jpe?g|gif|svg)$/,
         use: [
           {
-            loader: 'file-loader?name=/img/[name].[ext]',
-            // loader: 'file-loader',
-            // options: {
-            //   // outputPath: './images',
-            //   name: 'img/[name].[ext]',
-            //   publicPath: '/',
-            // },
+            // make sure that the asset storage folder is called "./src/images"
+            //
+            // name needs to be the same path as referenced in the style file, ie.
+            // if background: url('./images/header.jpg')
+            // then ?name=./images/[name].[ext]'
+            //
+            // if background: url('images/header.jpg')
+            // then ?name=images/[name].[ext]'
+            loader: 'file-loader?name=./images/[name].[ext]',
           },
         ],
       },
