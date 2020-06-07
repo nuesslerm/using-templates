@@ -37,6 +37,7 @@ button.btn {
   &.primary {
     background-color: #f05f44;
     border-color: #f05f44;
+
     &:hover {
       // TODO try to test different approaches like putting the button into its own row.
       background-color: #ee4b08;
@@ -48,6 +49,7 @@ button.btn {
       // scaling the button overlaps adjacent elements instead of pushing them up.
       transform: scale(1.1);
     }
+
     &:active {
       background-color: #ee4b08;
       border-color: #ee4b08;
