@@ -83,6 +83,7 @@ module.exports = {
       },
       {
         test: /\.(sa|sc|c)ss$/,
+        // exclude: /node_modules/,
         use: [
           {
             // After all CSS loaders we use plugin to do his work.
