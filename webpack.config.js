@@ -12,6 +12,7 @@
 
 // very useful reference:
 // webpack starter kit project with bootstrap4: https://github.com/nuesslerm/webpack-starter-kit
+// for file-loader config: https://github.com/nuesslerm/webpack-starter-kit/blob/master/webpack.config.js
 
 const webpack = require('webpack');
 const path = require('path');
@@ -89,6 +90,18 @@ module.exports = {
             // options: {
             //   implementation: require('sass'),
             // },
+          },
+        ],
+      },
+      {
+        test: /\.(jpg|jpeg|gif|png|svg|webp)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              outputPath: './images',
+              name: '[name].[ext]',
+            },
           },
         ],
       },
